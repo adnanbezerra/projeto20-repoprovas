@@ -5,10 +5,10 @@
   "engines": {
     "node": "16.x"
   },
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "node dist/server.js",
-    "test": "jest --no-cache",
+    "test": "dotenv -e .env.test prisma migrate dev && jest --no-cache",
     "build": "tsc && npx prisma migrate deploy",
     "dev": "nodemon src/server.ts"
   },

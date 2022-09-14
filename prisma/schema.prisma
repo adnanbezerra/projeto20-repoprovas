@@ -10,53 +10,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
+model Users {
   id       Int    @id @default(autoincrement())
   email    String @unique
   password String
 }
 
-model categories {
+model Categories {
   id    Int     @id @default(autoincrement())
   name  String  @unique
-  tests tests[]
+  tests Tests[]
 }
 
-model tests {
-  id                    Int                 @id @default(autoincrement())
-  name                  String
-  pdfUrl                String
-  categories            categories          @relation(fields: [categoryId], references: [id])
+model Tests {
+  id                  Int                 @id @default(autoincrement())
+  name                String
+  pdfUrl              String
+  categories          Categories          @relation(fields: [categoryId], references: [id])
   categoryId          Int
-  teacherDiscipline     teachersDisciplines @relation(fields: [teacherDisciplineId], references: [id])
+  teacherDiscipline   TeachersDisciplines @relation(fields: [teacherDisciplineId], references: [id])
   teacherDisciplineId Int
 }
 
-model teachersDisciplines {
-  id            Int         @id @default(autoincrement())
-  tests         tests[]
-  teachers      teachers    @relation(fields: [teacherId], references: [id])
+model TeachersDisciplines {
+  id           Int         @id @default(autoincrement())
+  tests        Tests[]
+  teachers     Teachers    @relation(fields: [teacherId], references: [id])
   teacherId    Int
-  disciplines   disciplines @relation(fields: [disciplineId], references: [id])
+  disciplines  Disciplines @relation(fields: [disciplineId], references: [id])
   disciplineId Int
 }
 
-model teachers {
+model Teachers {
   id                  Int                   @id @default(autoincrement())
   name                String                @unique
-  teachersDisciplines teachersDisciplines[]
+  teachersDisciplines TeachersDisciplines[]
 }
 
-model terms {
+model Terms {
   id          Int           @id @default(autoincrement())
   name        String        @unique
-  disciplines disciplines[]
+  disciplines Disciplines[]
 }
 
-model disciplines {
+model Disciplines {
   id                  Int                   @id @default(autoincrement())
   name                String                @unique
-  terms               terms                 @relation(fields: [termsId], references: [id])
+  terms               Terms                 @relation(fields: [termsId], references: [id])
   termsId             Int
-  teachersDisciplines teachersDisciplines[]
+  teachersDisciplines TeachersDisciplines[]
 }
