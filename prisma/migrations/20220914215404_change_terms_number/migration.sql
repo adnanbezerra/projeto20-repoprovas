@@ -1,51 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `categories` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `disciplines` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `teachers` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `teachersDisciplines` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `terms` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tests` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `users` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "disciplines" DROP CONSTRAINT "disciplines_termsId_fkey";
-
--- DropForeignKey
-ALTER TABLE "teachersDisciplines" DROP CONSTRAINT "teachersDisciplines_disciplineId_fkey";
-
--- DropForeignKey
-ALTER TABLE "teachersDisciplines" DROP CONSTRAINT "teachersDisciplines_teacherId_fkey";
-
--- DropForeignKey
-ALTER TABLE "tests" DROP CONSTRAINT "tests_categoryId_fkey";
-
--- DropForeignKey
-ALTER TABLE "tests" DROP CONSTRAINT "tests_teacherDisciplineId_fkey";
-
--- DropTable
-DROP TABLE "categories";
-
--- DropTable
-DROP TABLE "disciplines";
-
--- DropTable
-DROP TABLE "teachers";
-
--- DropTable
-DROP TABLE "teachersDisciplines";
-
--- DropTable
-DROP TABLE "terms";
-
--- DropTable
-DROP TABLE "tests";
-
--- DropTable
-DROP TABLE "users";
-
 -- CreateTable
 CREATE TABLE "Users" (
     "id" SERIAL NOT NULL,
@@ -94,7 +46,7 @@ CREATE TABLE "Teachers" (
 -- CreateTable
 CREATE TABLE "Terms" (
     "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
+    "number" INTEGER NOT NULL,
 
     CONSTRAINT "Terms_pkey" PRIMARY KEY ("id")
 );
@@ -118,7 +70,7 @@ CREATE UNIQUE INDEX "Categories_name_key" ON "Categories"("name");
 CREATE UNIQUE INDEX "Teachers_name_key" ON "Teachers"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Terms_name_key" ON "Terms"("name");
+CREATE UNIQUE INDEX "Terms_number_key" ON "Terms"("number");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Disciplines_name_key" ON "Disciplines"("name");

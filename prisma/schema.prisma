@@ -49,14 +49,14 @@ model Teachers {
 
 model Terms {
   id          Int           @id @default(autoincrement())
-  name        String        @unique
+  number      Int           @unique
   disciplines Disciplines[]
 }
 
 model Disciplines {
   id                  Int                   @id @default(autoincrement())
   name                String                @unique
-  terms               Terms                 @relation(fields: [termsId], references: [id])
-  termsId             Int
+  terms               Terms                 @relation(fields: [termId], references: [id])
+  termId              Int
   teachersDisciplines TeachersDisciplines[]
 }

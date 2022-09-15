@@ -1,22 +1,22 @@
 import supertest from "supertest"
 import server from "../src"
 import { client } from "../src/database/prisma"
+import { createUser } from "./factory/userFactory";
 
 beforeEach(async () => {
     await client.$executeRaw`TRUNCATE TABLE "Users"`;
 
-    const createAccount = {
-        email: "adnan@gmail.com",
-        password: "lele",
-        confirmPassword: "lele"
-    }
-
+    const createAccount = createUser()
     await supertest(server).post('/signup').send(createAccount);
 })
 
 jest.setTimeout(10000);
 
 describe("UserRouter tests", () => {
+
+    console.log(process.env.DATABASE_URL);
+    
+
     it("regular post signup", async () => {
         const payload = {
             email: "adnan@google.com",
