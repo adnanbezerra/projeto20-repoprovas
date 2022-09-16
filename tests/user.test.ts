@@ -12,10 +12,7 @@ beforeEach(async () => {
 
 jest.setTimeout(10000);
 
-describe("UserRouter tests", () => {
-
-    console.log(process.env.DATABASE_URL);
-    
+describe("UserRouter tests", () => {   
 
     it("regular post signup", async () => {
         const payload = {
