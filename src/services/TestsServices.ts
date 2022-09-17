@@ -1,6 +1,7 @@
+import { Terms } from "@prisma/client";
 import { getCategoryByName } from "../repositories/CategoriesRepository";
 import { getDisciplineByDisciplineName, getTeacherByTeacherName, getTeacherDisciplineIdFromIDs } from "../repositories/TeacherDisciplineRepository";
-import { createNewTest } from "../repositories/TestsRepository";
+import { createNewTest, getTestsArrangedByDiscipline } from "../repositories/TestsRepository";
 import { INewTest, INewTestInfo } from "../types/TestsTypes";
 
 export async function postTestService(newTest: INewTestInfo) {
@@ -15,6 +16,13 @@ export async function postTestService(newTest: INewTestInfo) {
     }
 
     await createNewTest(newTestData);
+}
+
+export async function getTestsByDisciplineService() {
+    const tests: Terms[] = await getTestsArrangedByDiscipline();
+
+    if (!tests) throw { type: "error_notFound", message: "No registered tests yet!" }
+    return tests;
 }
 
 // auxiliary functions
